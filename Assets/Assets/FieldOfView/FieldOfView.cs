@@ -21,7 +21,8 @@ public class FieldOfView : MonoBehaviour
     public MeshFilter meshFilter;
     Mesh viewMesh;
 
-    
+    public bool onAlert;
+
     private void Start()
     {
         viewMesh = new Mesh();
@@ -30,10 +31,11 @@ public class FieldOfView : MonoBehaviour
         StartCoroutine("FindTargetsWithDelay",0.2f);
     }
 
-    private void Update()
-    {
-        DrawFieldOfView();
-    }
+    //private void Update()
+    //{
+    //    DrawFieldOfView();
+
+    //}
     IEnumerator FindTargetsWithDelay(float delay)
     {
         while(true)
@@ -42,7 +44,6 @@ public class FieldOfView : MonoBehaviour
             FindVisibleTargets ();
         }
     }
-
     void FindVisibleTargets()
     {
         Collider[] targetsinViewRadius = Physics.OverlapSphere(transform.position, viewRadious, targetMask);
@@ -54,16 +55,27 @@ public class FieldOfView : MonoBehaviour
             if(Vector3.Angle(transform.forward,dirTarget) < viewAngle / 2)
             {
                 float dstToTarget = Vector3.Distance(transform.position,target.position);
-                
-                    if(!Physics.Raycast(transform.position,dirTarget,dstToTarget,obstacleMask))
-                    {
 
-                    addToList(target);
+                if (!Physics.Raycast(transform.position, dirTarget, dstToTarget, obstacleMask))
+                {
+                    if(target.name == "Player")
+                    {
+                        onAlert = true;
+                        addToList(target);
                     }
-                
+                  
+                }
+                else
+                {
+                    onAlert = false;
+                    visibleTargets.Remove(target);
+                }
+ 
+
             }
             else
             {
+                onAlert = false;
                 visibleTargets.Remove(target);
             }
         }
@@ -78,7 +90,6 @@ public class FieldOfView : MonoBehaviour
         for(int i = 0; i <= stepCount;i++ )
         {
             float angle = transform.eulerAngles.y - viewAngle / 2 + stepAngleSize * i;
-            //  Debug.DrawLine(transform.position, transform.position + DirFromAngle(angle, true) * viewRadious, Color.red);
             ViewCastInfo newViewCast = ViewCast(angle);
 
             if(i > 0 )
