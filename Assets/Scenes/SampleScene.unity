@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: aa87107d0c3535c4983a4edb2d0e9f7b, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.0060169566, g: 0.060250062, b: 0.19530022, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -184,7 +184,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 0.44
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -386,8 +386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ada0ffbe8773bd4d97d1312a2ee0a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadious: 16.01
-  viewAngle: 102.29
+  viewRadious: 11.12
+  viewAngle: 59
   targetMask:
     serializedVersion: 2
     m_Bits: 64
@@ -415,11 +415,12 @@ MonoBehaviour:
   state: 1
   Mark: {fileID: 1792859043}
   onAlertSpeed: 1
+  patrolLight: {fileID: 1011864586}
   anim: {fileID: 874333147088412186}
   Catched: 0
   PatrolPath: {fileID: 888856450}
-  patrolSpeed: 5
-  waitTime: 0.3
+  patrolSpeed: 3
+  waitTime: 1
   turnSpeed: 90
   inGroundTime: 10
 --- !u!1 &832575517
@@ -841,7 +842,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1011864583}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.31}
+  m_LocalPosition: {x: 0, y: 1.07, z: 0.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -879,8 +880,8 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0.8679245, g: 0, b: 0.008002371, a: 1}
-  m_Intensity: 2000
+  m_Color: {r: 0.6320754, g: 0.60026395, b: 0.1633855, a: 1}
+  m_Intensity: 100
   m_Range: 19.2
   m_SpotAngle: 108.15898
   m_InnerSpotAngle: 108.15898
@@ -2542,7 +2543,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986375122792720102}
-  m_LocalRotation: {x: 0.5464555, y: -0.000000021615206, z: 0.00000001410378, w: 0.8374882}
+  m_LocalRotation: {x: 0.5464555, y: 0.000000021615207, z: -0.000000014103781, w: 0.8374882}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4187,7 +4188,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986375123817731761}
-  m_LocalRotation: {x: 0.5656941, y: 0.000000021282968, z: -0.000000014600326, w: 0.8246152}
+  m_LocalRotation: {x: 0.5656941, y: 0.000000021282965, z: -0.000000014600322, w: 0.8246152}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

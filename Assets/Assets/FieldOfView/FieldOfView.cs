@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
-
+    Enemie enemy;
     public float viewRadious;
     [Range(0,360)]
     public float viewAngle;
@@ -26,6 +26,7 @@ public class FieldOfView : MonoBehaviour
     private void Start()
     {
         viewMesh = new Mesh();
+        enemy = GetComponent<Enemie>();
         viewMesh.name = "View Mesh";
         meshFilter.mesh = viewMesh;
         StartCoroutine("FindTargetsWithDelay",0.2f);
@@ -61,6 +62,7 @@ public class FieldOfView : MonoBehaviour
                     if(target.name == "Player")
                     {
                         onAlert = true;
+                        enemy.patrolLight.color = Color.red;
                         addToList(target);
                     }
                   
@@ -68,6 +70,7 @@ public class FieldOfView : MonoBehaviour
                 else
                 {
                     onAlert = false;
+                    enemy.patrolLight.color = Color.yellow;
                     visibleTargets.Remove(target);
                 }
  
@@ -76,6 +79,7 @@ public class FieldOfView : MonoBehaviour
             else
             {
                 onAlert = false;
+                enemy.patrolLight.color = Color.yellow;
                 visibleTargets.Remove(target);
             }
         }

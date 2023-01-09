@@ -18,6 +18,7 @@ public class Enemie : MonoBehaviour
     [Header("General Stuff")]
     FieldOfView fow;
     [SerializeField] float onAlertSpeed;
+    [SerializeField] public Light patrolLight;
     float AlertTimer;
     [Header("Animation Stuff")]
     [SerializeField] Animator anim;
@@ -32,8 +33,12 @@ public class Enemie : MonoBehaviour
     Vector3[] waypoints;
     [Header("DeadState")]
     [SerializeField] float inGroundTime;
+    
 
     bool stateCheck;
+     bool onPatrol;
+     Vector3 LastPosition;
+     int LastWaypoint;
 
     private void Start()
     {
@@ -41,8 +46,8 @@ public class Enemie : MonoBehaviour
         //state = EnemyState.Iddle;
         Mark.enabled = false;
         fow = GetComponent<FieldOfView>();
-
-         waypoints = new Vector3[PatrolPath.childCount];
+        patrolLight.color = Color.yellow;
+        waypoints = new Vector3[PatrolPath.childCount];
         for(int i = 0; i < waypoints.Length; i++)
         {
             waypoints[i] = PatrolPath.GetChild(i).position;
@@ -50,6 +55,7 @@ public class Enemie : MonoBehaviour
         }
 
         stateCheck = false;
+        onPatrol = false;
         //StartCoroutine(FollowPath(waypoints));
     }
 
@@ -61,6 +67,7 @@ public class Enemie : MonoBehaviour
     }
     IEnumerator TurnToFace(Vector3 lookTarget)
     {
+        
         Vector3 dirToLookTarget = (lookTarget - transform.position).normalized;
         float targetAngle = 90 - Mathf.Atan2(dirToLookTarget.z, dirToLookTarget.x) * Mathf.Rad2Deg;
 
@@ -74,18 +81,34 @@ public class Enemie : MonoBehaviour
 
     IEnumerator FollowPath(Vector3[] waypoints)
     {
-        transform.position = waypoints[0];
-        int targetWaypointIndex = 1;
+        int targetWaypointIndex;
+        if (!onPatrol)
+        {
+            transform.position = waypoints[0];
+            targetWaypointIndex = 1;
+            LastWaypoint = 1;
+            onPatrol = true;
+        }
+        else
+        {
+            targetWaypointIndex = LastWaypoint;
+            transform.position = LastPosition;
+        }
+        
         Vector3 targetWaypoint = waypoints[targetWaypointIndex];
         transform.LookAt(targetWaypoint);
 
         while(true)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, patrolSpeed * Time.deltaTime);
-            if(transform.position == targetWaypoint)
+            anim.SetBool("isWalk", true);
+            LastPosition = transform.position;
+            if (transform.position == targetWaypoint)
             {
                 targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length; // quando chegar ao valor igual, volta para 0
                 targetWaypoint = waypoints[targetWaypointIndex];
+                LastWaypoint = targetWaypointIndex;
+                anim.SetBool("isWalk", false);
                 yield return new WaitForSeconds(waitTime);
                 yield return StartCoroutine(TurnToFace(targetWaypoint));
             }
@@ -110,8 +133,9 @@ public class Enemie : MonoBehaviour
         }
         if(state == EnemyState.Iddle)
         {
-
-        }else if (state == EnemyState.Patrol)
+            anim.SetBool("isWalk", false);
+        }
+        else if (state == EnemyState.Patrol)
         {
             if(stateCheck)
             {
