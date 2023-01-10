@@ -19,7 +19,8 @@ public class KillEnemy : MonoBehaviour
 
             if (Input.GetKey(KeyCode.E))
             {
-                other.GetComponent<Enemie>().state = Enemie.EnemyState.Dead;
+                other.GetComponent<EnemyStateManager>().SwitchState(other.GetComponent<EnemyStateManager>().deadState);
+                text.enabled = false;
             }
         }
     }
