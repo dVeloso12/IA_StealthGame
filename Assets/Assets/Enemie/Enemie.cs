@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class Enemie : MonoBehaviour
 {
-    enum EnemyState
+    public enum EnemyState
     {
         Iddle,Patrol,FoundEnemy,Dead
     }
 
-    [SerializeField] EnemyState state;
+    [SerializeField] public EnemyState state;
     EnemyState LastState;
     Coroutine currentCorritene;
     [Header("UI_Elements")]
