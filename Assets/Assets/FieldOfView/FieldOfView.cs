@@ -56,10 +56,11 @@ public class FieldOfView : MonoBehaviour
             if(Vector3.Angle(transform.forward,dirTarget) < viewAngle / 2)
             {
                 float dstToTarget = Vector3.Distance(transform.position,target.position);
+                RaycastHit hit;
 
-                if (Physics.Raycast(transform.position, dirTarget, dstToTarget))
+                if (Physics.Raycast(transform.position, dirTarget,out hit, dstToTarget))
                 {
-                    if(target.name == "Player")
+                    if(hit.transform.name == "Player")
                     {
                         Debug.Log("Vi-te otario");
                         onAlert = true;

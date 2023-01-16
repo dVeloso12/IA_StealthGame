@@ -197,34 +197,7 @@ public class Maze : MonoBehaviour
         int h = 0;
         for(int i = 5; i <= ySize; i += 5)
         {
-            if (Random.Range(0, 2) == 5)
-            {
-                int sp = xSize / 3;
-
-                for (int j = 1; j < 3; j++) {
-
-                    h++;
-
-                    int x = Random.Range(-1, 2);
-                    int y = Random.Range(-1, 2);
-
-                    Vector3 enemypos= Instantiate(Enemy, new Vector3(initialPos.x+((sp*j+x)*wallLength), 0, initialPos.z + ((i + y)*wallLength)-wallLength/2), Quaternion.identity).transform.position;
-
-
-                    for (int g = 0; g < 2; g++)
-                    {
-                        x = Random.Range(-1, 2);
-                        y = Random.Range(-1, 2);
-
-                        GameObject sphere= Instantiate(Target, new Vector3(enemypos.x + (x * wallLength), 0, enemypos.z + (y * wallLength)), Quaternion.identity);
-                        Debug.Log(h + " " + sphere.transform.position + " " + enemypos);
-
-                    }
-
-                }
-            }
-            else
-            {
+            
                 int x = Random.Range(-2, 3);
                 int y = Random.Range(-2, 3);
 
@@ -233,8 +206,8 @@ public class Maze : MonoBehaviour
 
                 for (int g = 0; g < 2; g++)
                 {
-                    x = Random.Range(-1, 2);
-                    y = Random.Range(-1, 2);
+                    x = Random.Range(-2, 3);
+                    y = Random.Range(-2, 3);
 
                     GameObject sphere = Instantiate(Target, new Vector3(enemypos.transform.position.x + (x * wallLength), 0, enemypos.transform.position.z + (y * wallLength)), Quaternion.identity);
                     sphere.transform.parent = EnemyStuff.transform;
@@ -247,7 +220,7 @@ public class Maze : MonoBehaviour
                     }
                     catch { }
                 }
-            }
+            
 
 
 
