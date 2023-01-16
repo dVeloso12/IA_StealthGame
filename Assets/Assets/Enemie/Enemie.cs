@@ -70,24 +70,26 @@ public class Enemie : MonoBehaviour
     private void Update()
     {
         UpdateMarkImage();
-        if ((transform.position-navagent.destination).magnitude<.1f)
+    }
+    public void toPatrol()
+    {
+
+        if ((transform.position - navagent.destination).magnitude < .1f)
         {
-            //Debug.Log("POP");
-            if (targetActive==1)
+            anim.SetBool("isWalk", true);
+
+            if (targetActive == 1)
             {
-                //Debug.Log("FOP");
+                
                 navagent.destination = Target2.position;
                 targetActive = 2;
             }
-            else if (targetActive==2)
+            else if (targetActive == 2)
             {
                 navagent.destination = Target1.position;
                 targetActive = 1;
             }
         }
-    }
-    public void toPatrol()
-    {
 
         //if(canChoose)
         //{
@@ -97,52 +99,52 @@ public class Enemie : MonoBehaviour
         //    waitToTurn = false;
         //    navagent.destination = Target1.position;
 
-            
+
         //}
         //else
         //{
-            //if(!waitToTurn)
-            //{
+        //if(!waitToTurn)
+        //{
 
-            //    transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, patrolSpeed * Time.deltaTime);
-            //    anim.SetBool("isWalk", true);
+        //    transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, patrolSpeed * Time.deltaTime);
+        //    anim.SetBool("isWalk", true);
 
-            //    if (transform.position == targetWaypoint && !toTurn)
-            //    {
-            //        targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length; // quando chegar ao valor igual, volta para 0
-            //        targetWaypoint = waypoints[targetWaypointIndex];
-            //        anim.SetBool("isWalk", false);
-            //        waitToTurn = true;
+        //    if (transform.position == targetWaypoint && !toTurn)
+        //    {
+        //        targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length; // quando chegar ao valor igual, volta para 0
+        //        targetWaypoint = waypoints[targetWaypointIndex];
+        //        anim.SetBool("isWalk", false);
+        //        waitToTurn = true;
 
-            //    }
-            //}
-            //else
-            //{
-            //    toTurnTimer += Time.deltaTime;
-            //    if(toTurnTimer >= waitTime && !toTurn)
-            //    {
-            //        Vector3 dirToLookTarget = (targetWaypoint - transform.position).normalized;
-            //        targetAngle = 90 - Mathf.Atan2(dirToLookTarget.z, dirToLookTarget.x) * Mathf.Rad2Deg;
-            //        toTurn = true;
-            //    }
-            //if (toTurn)
-            //{
-            //    if (Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.y, targetAngle)) > 0.05f)
-            //    {
-            //        float angle = Mathf.MoveTowardsAngle(transform.eulerAngles.y, targetAngle, turnSpeed * Time.deltaTime);
-            //        transform.eulerAngles = Vector3.up * angle;
-            //    }
-            //    else
-            //    {
-            //        toTurn = false;
-            //        toTurnTimer = 0;
-            //        canChoose = true;
-            //        waitToTurn = false;
-            //    }
-                //    }
-            //}
-    //    }
-      
+        //    }
+        //}
+        //else
+        //{
+        //    toTurnTimer += Time.deltaTime;
+        //    if(toTurnTimer >= waitTime && !toTurn)
+        //    {
+        //        Vector3 dirToLookTarget = (targetWaypoint - transform.position).normalized;
+        //        targetAngle = 90 - Mathf.Atan2(dirToLookTarget.z, dirToLookTarget.x) * Mathf.Rad2Deg;
+        //        toTurn = true;
+        //    }
+        //if (toTurn)
+        //{
+        //    if (Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.y, targetAngle)) > 0.05f)
+        //    {
+        //        float angle = Mathf.MoveTowardsAngle(transform.eulerAngles.y, targetAngle, turnSpeed * Time.deltaTime);
+        //        transform.eulerAngles = Vector3.up * angle;
+        //    }
+        //    else
+        //    {
+        //        toTurn = false;
+        //        toTurnTimer = 0;
+        //        canChoose = true;
+        //        waitToTurn = false;
+        //    }
+        //    }
+        //}
+        //    }
+
 
     }
 
@@ -151,6 +153,7 @@ public class Enemie : MonoBehaviour
 
         if(!isDoingAnimDead)
         {
+            navagent.Stop();
             anim.SetTrigger("isDead");
             isDoingAnimDead = true;
             this.GetComponent<Collider>().enabled = false;
