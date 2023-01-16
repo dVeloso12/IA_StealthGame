@@ -52,6 +52,7 @@ public class PlayerMovement_3Person : MonoBehaviour
         rb.freezeRotation = true;
         readyToJump = true;
         startYScale = transform.localScale.y;
+
     }
     private void Update()
     {

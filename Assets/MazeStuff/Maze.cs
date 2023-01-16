@@ -39,6 +39,8 @@ public class Maze : MonoBehaviour
     void Start()
     {
        CreateWalls();
+
+
     }
 
     void CreateWalls()           //Cria as paredes com base nas dimensões dadas pelo utilizador
@@ -47,7 +49,8 @@ public class Maze : MonoBehaviour
         wallHolder.name = "Maze";
         EnemyStuff = new GameObject();
         initialPos = new Vector3((-xSize / 2) + wallLength / 2, 0.0f, (-ySize*wallLength / 2) + wallLength / 2);
-        //player.transform.position = new Vector3(xSize / 2, 0, initialPos.y);
+        //player.transform.position = Vector3.zero;
+        //Physics.SyncTransforms();
         //Esta posição inicial obtem a parede mais "baixa" e mais "á esquerda" através do posição (0,0)
         Vector3 myPos = initialPos;
         GameObject tempWall;  //variavel auxiliar e cosmetica
@@ -225,17 +228,20 @@ public class Maze : MonoBehaviour
                 int x = Random.Range(-2, 3);
                 int y = Random.Range(-2, 3);
 
-                Transform enemypos = Instantiate(Enemy, new Vector3(initialPos.x + ((xSize/2 + x) * wallLength), 0, initialPos.z + ((i + y) * wallLength) - wallLength / 2), Quaternion.identity).transform;
-                enemypos.parent = EnemyStuff.transform;
+                GameObject enemypos = Instantiate(Enemy, new Vector3(initialPos.x + ((xSize / 2 + x) * wallLength), 0, initialPos.z + ((i + y) * wallLength) - wallLength / 2), Quaternion.identity);
+                enemypos.transform.parent = EnemyStuff.transform;
 
                 for (int g = 0; g < 2; g++)
                 {
                     x = Random.Range(-1, 2);
                     y = Random.Range(-1, 2);
 
-                    GameObject sphere = Instantiate(Target, new Vector3(enemypos.position.x + (x * wallLength), 0, enemypos.position.z + (y * wallLength)), Quaternion.identity);
+                    GameObject sphere = Instantiate(Target, new Vector3(enemypos.transform.position.x + (x * wallLength), 0, enemypos.transform.position.z + (y * wallLength)), Quaternion.identity);
                     sphere.transform.parent = EnemyStuff.transform;
-
+                    if (g == 0)
+                        enemypos.GetComponent<Enemie>().Target1 = sphere.transform;
+                    else
+                        enemypos.GetComponent<Enemie>().Target2 = sphere.transform;
                 }
             }
 

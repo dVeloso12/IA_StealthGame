@@ -40,6 +40,10 @@ public class Enemie : MonoBehaviour
     bool isDoingAnimDead;
     float doingAnim;
 
+
+    [Header("Targets")]
+    public Transform Target1,Target2;
+
     private void Start()
     {
         transform.position = new Vector3(PatrolPath.GetChild(0).position.x, transform.position.y, PatrolPath.GetChild(0).position.z);
