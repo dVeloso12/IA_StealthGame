@@ -49,8 +49,8 @@ public class Maze : MonoBehaviour
         wallHolder.name = "Maze";
         EnemyStuff = new GameObject();
         initialPos = new Vector3((-xSize / 2) + wallLength / 2, 0.0f, (-ySize*wallLength / 2) + wallLength / 2);
-        //player.transform.position = Vector3.zero;
-        //Physics.SyncTransforms();
+        player.transform.position = new Vector3(xSize/2,1,initialPos.z);
+        Physics.SyncTransforms();
         //Esta posição inicial obtem a parede mais "baixa" e mais "á esquerda" através do posição (0,0)
         Vector3 myPos = initialPos;
         GameObject tempWall;  //variavel auxiliar e cosmetica
