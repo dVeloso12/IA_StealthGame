@@ -59,11 +59,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wall: {fileID: 2031414649857667957, guid: 4ced23d4c3cb914428c856c10e3ff4c8, type: 3}
-  wallLength: 2
+  wallLength: 3
   xSize: 10
-  ySize: 30
+  ySize: 20
   trigger: {fileID: 6062833252353596789}
   edge: []
   startPosY: 0
-  Enemy: {fileID: 6591041372423996348, guid: 5e15c47d75ae21a4dbb361cdaa005442, type: 3}
+  Enemy: {fileID: 1133607847947030779, guid: c517cc5a573e0d64cab6f7214a36976b, type: 3}
   Target: {fileID: 5491811161226313102, guid: 61bebae540b26f048819521739060961, type: 3}
+  previousMaze: {fileID: 0}
+  prevEnemy: {fileID: 0}
+  prevTrigger: {fileID: 0}

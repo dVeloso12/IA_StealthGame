@@ -20,7 +20,8 @@ public class Maze : MonoBehaviour
     public int ySize = 5;                  //altura
     public GameObject trigger;
     GameObject TriggerObject;
-    private Vector3 initialPos;            //posição de origem do labirinto
+    private Vector3 initialPos;
+    public GameObject player;
     private GameObject wallHolder,EnemyStuff;
     private Maze.Cell[] cells;
     int currentCell = 0;
@@ -37,15 +38,17 @@ public class Maze : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       StartCoroutine( CreateWalls());
+       CreateWalls();
     }
 
-    IEnumerator CreateWalls()           //Cria as paredes com base nas dimensões dadas pelo utilizador
+    void CreateWalls()           //Cria as paredes com base nas dimensões dadas pelo utilizador
     {
         wallHolder = new GameObject();
         wallHolder.name = "Maze";
         EnemyStuff = new GameObject();
-        initialPos = new Vector3((-xSize / 2) + wallLength / 2, 0.0f, (-ySize*wallLength / 2) + wallLength / 2);  //Esta posição inicial obtem a parede mais "baixa" e mais "á esquerda" através do posição (0,0)
+        initialPos = new Vector3((-xSize / 2) + wallLength / 2, 0.0f, (-ySize*wallLength / 2) + wallLength / 2);
+        //player.transform.position = new Vector3(xSize / 2, 0, initialPos.y);
+        //Esta posição inicial obtem a parede mais "baixa" e mais "á esquerda" através do posição (0,0)
         Vector3 myPos = initialPos;
         GameObject tempWall;  //variavel auxiliar e cosmetica
 
@@ -58,7 +61,7 @@ public class Maze : MonoBehaviour
                 myPos = new Vector3(initialPos.x + (j * wallLength) - wallLength / 2, 0.0f, initialPos.z + (i * wallLength) - wallLength / 2);
                 tempWall = Instantiate(wall, myPos, Quaternion.identity) as GameObject;
                 tempWall.transform.parent = wallHolder.transform;
-                if (i == 8&&j==0)
+                if (i == 8 &&j==0)
                 {
                     TriggerObject = Instantiate(trigger, new Vector3(0, 0, myPos.z), Quaternion.identity);
                     TriggerObject.GetComponent<Maze2>().startPosY = ySize * wallLength / 2;
@@ -66,7 +69,6 @@ public class Maze : MonoBehaviour
                     TriggerObject.GetComponent<Maze2>().prevEnemy = EnemyStuff;
                     Debug.Log("Trigger");
                 }
-                yield return new WaitForSeconds(0);
             } 
         }
 
@@ -79,7 +81,6 @@ public class Maze : MonoBehaviour
                 myPos = new Vector3(initialPos.x + (j * wallLength), 0.0f, initialPos.z + (i * wallLength) - wallLength);
                 tempWall = Instantiate(wall, myPos, Quaternion.Euler(0.0f, 90.0f, 0.0f)) as GameObject;
                 tempWall.transform.parent = wallHolder.transform;
-                yield return new WaitForSeconds(0);
             }
         }
 
@@ -135,10 +136,10 @@ public class Maze : MonoBehaviour
 
         TriggerObject.GetComponent<Maze2>().edge = allWalls;
 
-        StartCoroutine( CreateMaze());
+        CreateMaze();
     }
 
-    IEnumerator CreateMaze()
+    void CreateMaze()
     {
 
         while (visitedCells < totalCells)           //Se há células por visitar
@@ -149,7 +150,6 @@ public class Maze : MonoBehaviour
                 if (cells[currentNeighbour].visited == false && cells[currentCell].visited == true)    //Se não visitou o vizinho
                 {
                     BreakWall();                  //Destroi a parede entre si e o vizinho
-                    yield return new WaitForSeconds(0f);
                     cells[currentNeighbour].visited = true;          //Marca o vizinho como visitado
                     visitedCells++;
                     lastCells.Add(currentCell);                      //Marca a celula onde estava como "Celula anterior"

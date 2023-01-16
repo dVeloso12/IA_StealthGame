@@ -182,15 +182,15 @@ public class Enemie : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        Vector3 startPosition = PatrolPath.GetChild(0).position;
-        Vector3 previousPosition = startPosition;
-        foreach(Transform tras in PatrolPath)
-        {
-            Gizmos.DrawSphere(tras.position, 0.3f);
-            Gizmos.DrawLine(previousPosition,tras.position);
-            previousPosition = tras.position;
-        }
-        Gizmos.DrawLine(previousPosition, startPosition);
+        //Vector3 startPosition = PatrolPath.GetChild(0).position;
+        //Vector3 previousPosition = startPosition;
+        //foreach(Transform tras in PatrolPath)
+        //{
+        //    Gizmos.DrawSphere(tras.position, 0.3f);
+        //    Gizmos.DrawLine(previousPosition,tras.position);
+        //    previousPosition = tras.position;
+        //}
+        //Gizmos.DrawLine(previousPosition, startPosition);
 
     }
 

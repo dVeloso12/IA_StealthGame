@@ -56,7 +56,7 @@ public class Maze2 : MonoBehaviour
                 myPos = new Vector3(initialPos.x + (j * wallLength) - wallLength / 2, 0.0f, initialPos.z + (i * wallLength) - wallLength / 2);
                 tempWall = Instantiate(wall, myPos, Quaternion.identity) as GameObject;
                 tempWall.transform.parent = wallHolder.transform;
-                if (i == 8&&j==0)
+                if (i == 8 &&j==0)
                 {
                     TriggerObject = Instantiate(trigger, new Vector3(0, 0, myPos.z), Quaternion.identity);
                     TriggerObject.GetComponent<Maze2>().startPosY =startPosY+ySize*wallLength;
