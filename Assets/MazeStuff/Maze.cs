@@ -49,7 +49,7 @@ public class Maze : MonoBehaviour
         wallHolder.name = "Maze";
         EnemyStuff = new GameObject();
         initialPos = new Vector3((-xSize / 2) + wallLength / 2, 0.0f, (-ySize*wallLength / 2) + wallLength / 2);
-        player.transform.position = new Vector3(xSize/2,1,initialPos.z);
+        player.transform.position = new Vector3(xSize/2,1,initialPos.z-wallLength/2);
         Physics.SyncTransforms();
         //Esta posição inicial obtem a parede mais "baixa" e mais "á esquerda" através do posição (0,0)
         Vector3 myPos = initialPos;
@@ -135,7 +135,7 @@ public class Maze : MonoBehaviour
             cells[cellprocess].west = allWalls[eastWestProcess];
             cells[cellprocess].north = allWalls[(childProcess + (xSize + 1) * ySize) + xSize - 1];
         }
-        Debug.Log(allWalls.Length+" "+cells.Length);
+        //Debug.Log(allWalls.Length+" "+cells.Length);
 
         TriggerObject.GetComponent<Maze2>().edge = allWalls;
 

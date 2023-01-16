@@ -68,7 +68,6 @@ public class Maze2 : MonoBehaviour
                 yield return new WaitForSeconds(0);
             } 
         }
-        GetComponent<BoxCollider>().enabled = false;
 
         //Para o eixo Y
 
@@ -113,7 +112,7 @@ public class Maze2 : MonoBehaviour
             {
                 for (int j = 0; j < xSize; j++)
                 {
-                    Debug.Log(i + " " + j + " " + edge.Length);
+                    //Debug.Log(i + " " + j + " " + edge.Length);
                     allWalls[i + j] = edge[edge.Length - xSize - 1 + j];
                 }
                 i += xSize - 1;
@@ -355,7 +354,9 @@ public class Maze2 : MonoBehaviour
                 prevTrigger.GetComponent<Maze2>().previousMaze.SetActive(false);
                 prevTrigger.GetComponent<Maze2>().prevEnemy.SetActive(false);
             }
-                StartCoroutine(CreateWalls());
+            GetComponent<BoxCollider>().enabled = false;
+
+            StartCoroutine(CreateWalls());
         }
         
     }

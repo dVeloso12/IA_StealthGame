@@ -57,10 +57,11 @@ public class FieldOfView : MonoBehaviour
             {
                 float dstToTarget = Vector3.Distance(transform.position,target.position);
 
-                if (!Physics.Raycast(transform.position, dirTarget, dstToTarget, obstacleMask))
+                if (Physics.Raycast(transform.position, dirTarget, dstToTarget))
                 {
                     if(target.name == "Player")
                     {
+                        Debug.Log("Vi-te otario");
                         onAlert = true;
                         enemy.patrolLight.color = Color.red;
                         addToList(target);
