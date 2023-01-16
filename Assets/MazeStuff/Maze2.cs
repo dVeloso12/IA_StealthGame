@@ -65,7 +65,7 @@ public class Maze2 : MonoBehaviour
                     TriggerObject.GetComponent<Maze2>().prevTrigger = this.gameObject;
                     Debug.Log("Trigger");
                 }
-                yield return new WaitForSeconds(0);
+                yield return new WaitForSeconds(.1f);
             } 
         }
 
@@ -165,7 +165,7 @@ public class Maze2 : MonoBehaviour
                 if (cells[currentNeighbour].visited == false && cells[currentCell].visited == true)    //Se não visitou o vizinho
                 {
                     BreakWall();                  //Destroi a parede entre si e o vizinho
-                    yield return new WaitForSeconds(0f);
+                    yield return new WaitForSeconds(.1f);
                     cells[currentNeighbour].visited = true;          //Marca o vizinho como visitado
                     visitedCells++;
                     lastCells.Add(currentCell);                      //Marca a celula onde estava como "Celula anterior"
