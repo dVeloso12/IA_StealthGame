@@ -30,6 +30,7 @@ public class Enemie : MonoBehaviour
     bool toTurn,waitToTurn;
     bool canChoose;
     Vector3[] waypoints;
+    Pathfinder pathfinder;
 
     [Header("DeadState")]
     [SerializeField] AnimationClip deadClip;
@@ -44,20 +45,45 @@ public class Enemie : MonoBehaviour
     [Header("Targets")]
     public Transform Target1,Target2;
 
+    Vector3 StartPos_Patrol, EndPos_Patrol;
+
+    List<PathNode> path;
+
     private void Start()
     {
-        transform.position = new Vector3(PatrolPath.GetChild(0).position.x, transform.position.y, PatrolPath.GetChild(0).position.z);
         Mark.enabled = false;
         fow = GetComponent<FieldOfView>();
+
+        pathfinder = Pathfinder.Instance;
+        
         patrolLight.color = Color.yellow;
-        waypoints = new Vector3[PatrolPath.childCount];
+        if (pathfinder == null)
+            Debug.LogWarning("Path e nulo");
+
+        //transform.position += new Vector3(1, 0, 1);
+
+        StartPos_Patrol = Target1.position;
+        EndPos_Patrol = Target2.position;
+
+        transform.position = StartPos_Patrol;
+
+        Debug.LogWarning("Start Pos : " + StartPos_Patrol);
+        Debug.LogWarning("End Pos : " + EndPos_Patrol);
+
+        path = pathfinder.FindPath(/*Target1.position*/StartPos_Patrol.x, /*Target1.position*/StartPos_Patrol.z, /*Target2.position*/EndPos_Patrol.x, /*Target2.position*/EndPos_Patrol.z, transform.position, EndPos_Patrol);
+
+        waypoints = new Vector3[path.Count];
+
+        //transform.position = waypoints[0];
+
         for(int i = 0; i < waypoints.Length; i++)
         {
-            waypoints[i] = PatrolPath.GetChild(i).position;
-            waypoints[i] = new Vector3(waypoints[i].x, transform.position.y, waypoints[i].z);
+            waypoints[i] = new Vector3(path[i].x, transform.position.y, path[i].y);
         }
 
-        transform.position = waypoints[0];
+
+        //transform.position = waypoints[0];
+        Debug.Log("path lenght : " + path.Count);
         targetWaypointIndex = 1;
         canChoose = true;
         canDetect = true;
@@ -67,6 +93,7 @@ public class Enemie : MonoBehaviour
     {
         UpdateMarkImage();   
     }
+
     public void toPatrol()
     {
 
@@ -88,6 +115,20 @@ public class Enemie : MonoBehaviour
                 if (transform.position == targetWaypoint && !toTurn)
                 {
                     targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length; // quando chegar ao valor igual, volta para 0
+
+                    //Chegou ao final. Voltar para o inicial
+                    if(targetWaypointIndex == waypoints.Length - 1)
+                    {
+                        path.Reverse();
+                        waypoints = new Vector3[path.Count];
+                        for(int i = 0; i < path.Count; i++)
+                        {
+                            waypoints[i] = new Vector3(path[i].x, transform.position.y, path[i].y);
+                        }
+
+                        targetWaypointIndex = 1;
+                    }
+
                     targetWaypoint = waypoints[targetWaypointIndex];
                     anim.SetBool("isWalk", false);
                     waitToTurn = true;

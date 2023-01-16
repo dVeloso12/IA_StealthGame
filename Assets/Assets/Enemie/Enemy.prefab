@@ -535,7 +535,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1133607847947030779}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ada0ffbe8773bd4d97d1312a2ee0a60, type: 3}
   m_Name: 
@@ -561,7 +561,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1133607847947030779}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b44b5c069e4dfa449ee9dbc5b29dacb, type: 3}
   m_Name: 
@@ -579,6 +579,8 @@ MonoBehaviour:
   deadClip: {fileID: 7400000, guid: 422e1e71fc709ca4684d3c515e05865c, type: 2}
   inGroundTime: 10
   timeToDestroy: 5
+  Target1: {fileID: 0}
+  Target2: {fileID: 0}
 --- !u!65 &1133607847947030753
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -588,7 +590,7 @@ BoxCollider:
   m_GameObject: {fileID: 1133607847947030779}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.68894196, y: 2.8416133, z: 0.43881834}
   m_Center: {x: 0.014533997, y: 0.44589686, z: -0.033728182}
@@ -599,7 +601,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1133607847947030779}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 389ed8adaed987249beba456ad7ab33d, type: 3}
   m_Name: 
