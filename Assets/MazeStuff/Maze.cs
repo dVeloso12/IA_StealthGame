@@ -238,10 +238,14 @@ public class Maze : MonoBehaviour
 
                     GameObject sphere = Instantiate(Target, new Vector3(enemypos.transform.position.x + (x * wallLength), 0, enemypos.transform.position.z + (y * wallLength)), Quaternion.identity);
                     sphere.transform.parent = EnemyStuff.transform;
-                    if (g == 0)
-                        enemypos.GetComponent<Enemie>().Target1 = sphere.transform;
-                    else
-                        enemypos.GetComponent<Enemie>().Target2 = sphere.transform;
+                    try
+                    {
+                        if (g == 0)
+                            enemypos.GetComponent<Enemie>().Target1 = sphere.transform;
+                        else
+                            enemypos.GetComponent<Enemie>().Target2 = sphere.transform;
+                    }
+                    catch { }
                 }
             }
 

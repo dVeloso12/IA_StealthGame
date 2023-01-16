@@ -286,12 +286,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wall: {fileID: 2031414649857667957, guid: 4ced23d4c3cb914428c856c10e3ff4c8, type: 3}
-  wallLength: 2
+  wallLength: 3
   xSize: 10
   ySize: 20
   trigger: {fileID: 6062833252353596789, guid: eb6fb2225a69fa943a039c9274d1a39c, type: 3}
+  player: {fileID: 641005807}
   Enemy: {fileID: 6591041372423996348, guid: 5e15c47d75ae21a4dbb361cdaa005442, type: 3}
   Target: {fileID: 5491811161226313102, guid: 61bebae540b26f048819521739060961, type: 3}
+--- !u!1 &641005807 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6591041372423996348, guid: 5e15c47d75ae21a4dbb361cdaa005442,
+    type: 3}
+  m_PrefabInstance: {fileID: 6591041372553064167}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1213113413
 GameObject:
   m_ObjectHideFlags: 0

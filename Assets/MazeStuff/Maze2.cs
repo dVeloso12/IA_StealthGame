@@ -79,10 +79,12 @@ public class Maze2 : MonoBehaviour
                 myPos = new Vector3(initialPos.x + (j * wallLength), 0.0f, initialPos.z + (i * wallLength) - wallLength);
                 tempWall = Instantiate(wall, myPos, Quaternion.Euler(0.0f, 90.0f, 0.0f)) as GameObject;
                 tempWall.transform.parent = wallHolder.transform;
-                yield return new WaitForSeconds(0);
+               
             }
         }
 
+
+        yield return new WaitForSeconds(0);
         CreateCells();
 
     }
@@ -347,6 +349,7 @@ public class Maze2 : MonoBehaviour
 
         if (other.transform.tag == "Player")
         {
+            Debug.Log("Activated");
             if (prevTrigger != null)
             {
                 prevTrigger.GetComponent<Maze2>().previousMaze.SetActive(false);
