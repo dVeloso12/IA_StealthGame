@@ -165,7 +165,7 @@ public class Maze2 : MonoBehaviour
                 if (cells[currentNeighbour].visited == false && cells[currentCell].visited == true)    //Se não visitou o vizinho
                 {
                     BreakWall();                  //Destroi a parede entre si e o vizinho
-                    yield return new WaitForSeconds(.1f);
+                    yield return new WaitForSeconds(0f);
                     cells[currentNeighbour].visited = true;          //Marca o vizinho como visitado
                     visitedCells++;
                     lastCells.Add(currentCell);                      //Marca a celula onde estava como "Celula anterior"
