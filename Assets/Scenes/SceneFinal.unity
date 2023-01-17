@@ -1502,7 +1502,7 @@ MonoBehaviour:
   wall: {fileID: 2031414649857667957, guid: 4ced23d4c3cb914428c856c10e3ff4c8, type: 3}
   wallLength: 3
   xSize: 10
-  ySize: 20
+  ySize: 40
   trigger: {fileID: 6062833252353596789, guid: eb6fb2225a69fa943a039c9274d1a39c, type: 3}
   player: {fileID: 986375122088406219}
   Enemy: {fileID: 1133607847947030779, guid: c517cc5a573e0d64cab6f7214a36976b, type: 3}
@@ -3615,7 +3615,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986375123289633895}
-  m_LocalRotation: {x: 0.5653977, y: -0.026691144, z: 0.018310387, w: 0.82418305}
+  m_LocalRotation: {x: 0.5653977, y: -0.02669123, z: 0.018310446, w: 0.82418305}
   m_LocalPosition: {x: 22.493813, y: 14.26, z: -3.1712465}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4707,7 +4707,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986375123817731761}
-  m_LocalRotation: {x: 0.5656941, y: 0.000000021282968, z: -0.000000014600326, w: 0.8246152}
+  m_LocalRotation: {x: 0.5656941, y: -0.00000002128296, z: 0.00000001460032, w: 0.8246152}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
