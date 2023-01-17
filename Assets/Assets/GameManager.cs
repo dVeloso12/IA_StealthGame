@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] List<Enemie> ListEnemys;
+    [SerializeField]public List<Enemie> ListEnemys;
     [Header("UI")]
     [SerializeField] GameObject CatchedMenu;
     [SerializeField] GameObject PauseMenu;

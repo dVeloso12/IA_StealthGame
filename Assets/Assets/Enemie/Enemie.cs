@@ -49,6 +49,7 @@ public class Enemie : MonoBehaviour
 
     private void Start()
     {
+        FindObjectOfType<GameManager>().ListEnemys.Add(this);
         //transform.position = new Vector3(PatrolPath.GetChild(0).position.x, transform.position.y, PatrolPath.GetChild(0).position.z);
         Mark.enabled = false;
         fow = GetComponent<FieldOfView>();
