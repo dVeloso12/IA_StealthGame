@@ -49,7 +49,7 @@ public class Maze : MonoBehaviour
         wallHolder.name = "Maze";
         EnemyStuff = new GameObject();
         initialPos = new Vector3((-xSize / 2) + wallLength / 2, 0.0f, (-ySize*wallLength / 2) + wallLength / 2);
-        player.transform.position = new Vector3(xSize/2,1,initialPos.z);
+        player.transform.position = new Vector3(xSize/2,1,initialPos.z-wallLength/2);
         Physics.SyncTransforms();
         //Esta posição inicial obtem a parede mais "baixa" e mais "á esquerda" através do posição (0,0)
         Vector3 myPos = initialPos;
@@ -135,7 +135,7 @@ public class Maze : MonoBehaviour
             cells[cellprocess].west = allWalls[eastWestProcess];
             cells[cellprocess].north = allWalls[(childProcess + (xSize + 1) * ySize) + xSize - 1];
         }
-        Debug.Log(allWalls.Length+" "+cells.Length);
+        //Debug.Log(allWalls.Length+" "+cells.Length);
 
         TriggerObject.GetComponent<Maze2>().edge = allWalls;
 
@@ -197,34 +197,7 @@ public class Maze : MonoBehaviour
         int h = 0;
         for(int i = 5; i <= ySize; i += 5)
         {
-            if (Random.Range(0, 2) == 5)
-            {
-                int sp = xSize / 3;
-
-                for (int j = 1; j < 3; j++) {
-
-                    h++;
-
-                    int x = Random.Range(-1, 2);
-                    int y = Random.Range(-1, 2);
-
-                    Vector3 enemypos= Instantiate(Enemy, new Vector3(initialPos.x+((sp*j+x)*wallLength), 0, initialPos.z + ((i + y)*wallLength)-wallLength/2), Quaternion.identity).transform.position;
-
-
-                    for (int g = 0; g < 2; g++)
-                    {
-                        x = Random.Range(-1, 2);
-                        y = Random.Range(-1, 2);
-
-                        GameObject sphere= Instantiate(Target, new Vector3(enemypos.x + (x * wallLength), 0, enemypos.z + (y * wallLength)), Quaternion.identity);
-                        Debug.Log(h + " " + sphere.transform.position + " " + enemypos);
-
-                    }
-
-                }
-            }
-            else
-            {
+            
                 int x = Random.Range(-2, 3);
                 int y = Random.Range(-2, 3);
 
@@ -233,17 +206,21 @@ public class Maze : MonoBehaviour
 
                 for (int g = 0; g < 2; g++)
                 {
-                    x = Random.Range(-1, 2);
-                    y = Random.Range(-1, 2);
+                    x = Random.Range(-2, 3);
+                    y = Random.Range(-2, 3);
 
                     GameObject sphere = Instantiate(Target, new Vector3(enemypos.transform.position.x + (x * wallLength), 0, enemypos.transform.position.z + (y * wallLength)), Quaternion.identity);
                     sphere.transform.parent = EnemyStuff.transform;
-                    if (g == 0)
-                        enemypos.GetComponent<Enemie>().Target1 = sphere.transform;
-                    else
-                        enemypos.GetComponent<Enemie>().Target2 = sphere.transform;
+                    try
+                    {
+                        if (g == 0)
+                            enemypos.GetComponent<Enemie>().Target1 = sphere.transform;
+                        else
+                            enemypos.GetComponent<Enemie>().Target2 = sphere.transform;
+                    }
+                    catch { }
                 }
-            }
+            
 
 
 

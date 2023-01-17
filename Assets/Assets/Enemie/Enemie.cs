@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class Enemie : MonoBehaviour
 {
@@ -19,17 +20,19 @@ public class Enemie : MonoBehaviour
     public bool Catched;
 
     [Header("PatrolState")]
-    [SerializeField] Transform PatrolPath;
-    [SerializeField] float patrolSpeed = 5;
-    [SerializeField] float waitTime = .3f;
-    [SerializeField] float turnSpeed = 90;
-    Vector3 targetWaypoint;
+    //[SerializeField] Transform PatrolPath;
+    //[SerializeField] float patrolSpeed = 5;
+    //[SerializeField] float waitTime = .3f;
+    //[SerializeField] float turnSpeed = 90;
+    //Vector3 targetWaypoint;
     public int targetWaypointIndex;
     float targetAngle;
     float toTurnTimer;
     bool toTurn,waitToTurn;
     bool canChoose;
-    Vector3[] waypoints;
+    int targetActive=1;
+    public NavMeshAgent navagent;
+    //Vector3[] waypoints;
 
     [Header("DeadState")]
     [SerializeField] AnimationClip deadClip;
@@ -46,81 +49,102 @@ public class Enemie : MonoBehaviour
 
     private void Start()
     {
-        transform.position = new Vector3(PatrolPath.GetChild(0).position.x, transform.position.y, PatrolPath.GetChild(0).position.z);
+        //transform.position = new Vector3(PatrolPath.GetChild(0).position.x, transform.position.y, PatrolPath.GetChild(0).position.z);
         Mark.enabled = false;
         fow = GetComponent<FieldOfView>();
         patrolLight.color = Color.yellow;
-        waypoints = new Vector3[PatrolPath.childCount];
-        for(int i = 0; i < waypoints.Length; i++)
-        {
-            waypoints[i] = PatrolPath.GetChild(i).position;
-            waypoints[i] = new Vector3(waypoints[i].x, transform.position.y, waypoints[i].z);
-        }
+        //waypoints = new Vector3[PatrolPath.childCount];
+        //for(int i = 0; i < waypoints.Length; i++)
+        //{
+            //waypoints[i] = PatrolPath.GetChild(i).position;
+            //waypoints[i] = new Vector3(waypoints[i].x, transform.position.y, waypoints[i].z);
+        //}
 
-        transform.position = waypoints[0];
+        //transform.position = waypoints[0];
         targetWaypointIndex = 1;
         canChoose = true;
         canDetect = true;
+        navagent.destination = Target1.position;
     }
 
     private void Update()
     {
-        UpdateMarkImage();   
+        UpdateMarkImage();
     }
     public void toPatrol()
     {
 
-        if(canChoose)
+        if ((transform.position - navagent.destination).magnitude < .1f)
         {
-            targetWaypoint = waypoints[targetWaypointIndex];
-            transform.LookAt(targetWaypoint);
-            canChoose = false;
-            waitToTurn = false;
-        }
-        else
-        {
-            if(!waitToTurn)
+            anim.SetBool("isWalk", true);
+
+            if (targetActive == 1)
             {
-               
-                transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, patrolSpeed * Time.deltaTime);
-                anim.SetBool("isWalk", true);
-
-                if (transform.position == targetWaypoint && !toTurn)
-                {
-                    targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length; // quando chegar ao valor igual, volta para 0
-                    targetWaypoint = waypoints[targetWaypointIndex];
-                    anim.SetBool("isWalk", false);
-                    waitToTurn = true;
-
-                }
+                
+                navagent.destination = Target2.position;
+                targetActive = 2;
             }
-            else
+            else if (targetActive == 2)
             {
-                toTurnTimer += Time.deltaTime;
-                if(toTurnTimer >= waitTime && !toTurn)
-                {
-                    Vector3 dirToLookTarget = (targetWaypoint - transform.position).normalized;
-                    targetAngle = 90 - Mathf.Atan2(dirToLookTarget.z, dirToLookTarget.x) * Mathf.Rad2Deg;
-                    toTurn = true;
-                }
-                if(toTurn)
-                {
-                    if(Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.y, targetAngle)) > 0.05f)
-                    {
-                        float angle = Mathf.MoveTowardsAngle(transform.eulerAngles.y, targetAngle, turnSpeed * Time.deltaTime);
-                        transform.eulerAngles = Vector3.up * angle;
-                    }
-                    else
-                    {
-                        toTurn = false;
-                        toTurnTimer = 0;
-                        canChoose = true;
-                        waitToTurn=false;
-                    }
-                }
+                navagent.destination = Target1.position;
+                targetActive = 1;
             }
         }
-      
+
+        //if(canChoose)
+        //{
+        //    //targetWaypoint = waypoints[targetWaypointIndex];
+        //    //transform.LookAt(targetWaypoint);
+        //    canChoose = false;
+        //    waitToTurn = false;
+        //    navagent.destination = Target1.position;
+
+
+        //}
+        //else
+        //{
+        //if(!waitToTurn)
+        //{
+
+        //    transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, patrolSpeed * Time.deltaTime);
+        //    anim.SetBool("isWalk", true);
+
+        //    if (transform.position == targetWaypoint && !toTurn)
+        //    {
+        //        targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length; // quando chegar ao valor igual, volta para 0
+        //        targetWaypoint = waypoints[targetWaypointIndex];
+        //        anim.SetBool("isWalk", false);
+        //        waitToTurn = true;
+
+        //    }
+        //}
+        //else
+        //{
+        //    toTurnTimer += Time.deltaTime;
+        //    if(toTurnTimer >= waitTime && !toTurn)
+        //    {
+        //        Vector3 dirToLookTarget = (targetWaypoint - transform.position).normalized;
+        //        targetAngle = 90 - Mathf.Atan2(dirToLookTarget.z, dirToLookTarget.x) * Mathf.Rad2Deg;
+        //        toTurn = true;
+        //    }
+        //if (toTurn)
+        //{
+        //    if (Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.y, targetAngle)) > 0.05f)
+        //    {
+        //        float angle = Mathf.MoveTowardsAngle(transform.eulerAngles.y, targetAngle, turnSpeed * Time.deltaTime);
+        //        transform.eulerAngles = Vector3.up * angle;
+        //    }
+        //    else
+        //    {
+        //        toTurn = false;
+        //        toTurnTimer = 0;
+        //        canChoose = true;
+        //        waitToTurn = false;
+        //    }
+        //    }
+        //}
+        //    }
+
 
     }
 
@@ -129,6 +153,7 @@ public class Enemie : MonoBehaviour
 
         if(!isDoingAnimDead)
         {
+            navagent.Stop();
             anim.SetTrigger("isDead");
             isDoingAnimDead = true;
             this.GetComponent<Collider>().enabled = false;
